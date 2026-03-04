@@ -50,7 +50,13 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 
 4. **commands.json 로드**: Read `${PLUGIN_ROOT}/data/commands.json`
 
-5. **토픽 결정**:
+5. **모드 결정**:
+   - `$ARGUMENTS`에 `"mini"` 또는 `"미니"`가 포함되면 → **미니 스프린트 모드** (15분)
+   - 미니 스프린트: Phase 1(HOOK) → Phase 2(MICRO-READ) → Phase 3(TRY-IT) → Phase 7(STREAK) 만 진행
+   - 미니 스프린트도 스트릭에 포함된다 (완주 인정)
+   - `totalStudyMinutes += 15` (미니), history의 `duration: 15`
+
+6. **토픽 결정**:
    - `$ARGUMENTS`에 토픽ID가 있으면 해당 토픽을 선택
    - 없으면 progress에서 status가 `"not_started"` 또는 `"in_progress"`인 첫 번째 토픽 선택 (core 먼저, 그 다음 extensions 순서)
    - **모든 토픽 완료 시**: 모든 core 토픽이 `"completed"`이고 extensions도 없거나 모두 `"completed"`인 경우:
@@ -70,6 +76,35 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
      - **"복습 모드"**: `progress`에서 `completedAt`이 가장 오래된 토픽을 선택하여 스프린트 진행
      - **"새 토픽 확인 (/sprint update)"**: "다음 명령어를 실행해주세요: `/sprint update`" 안내 후 종료
      - **"퀵 퀴즈 (/quiz)"**: "다음 명령어를 실행해주세요: `/quiz`" 안내 후 종료
+
+---
+
+## 공통 Phase 표시 규칙
+
+각 Phase 시작 시 반드시 다음 형식의 헤더를 먼저 출력한다:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏱️ Phase {n}/7 — {Phase 이름} ({예상 시간}분)
+[■■■□□□□] 진행률 {n}/7
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+- 진행률 바는 7칸 기준: `■` (완료), `□` (미완료)
+- 이렇게 하면 ADHD 사용자가 "지금 어디쯤인지", "얼마나 남았는지" 시각적으로 파악 가능.
+
+## 중도 이탈 처리
+
+모든 Phase의 AskUserQuestion에 `"그만할래요"` 옵션을 추가한다.
+- **"그만할래요"** 선택 시:
+  1. "괜찮아요! 여기까지도 잘했어요." 피드백
+  2. Phase 4 이상까지 진행했으면:
+     - state.json을 업데이트한다 (현재 토픽을 `"in_progress"`로 기록)
+     - `totalStudyMinutes += (완료한 Phase 수 × 4)` (대략적 시간)
+     - `totalSessions += 1`
+     - 스트릭도 업데이트한다 (부분 완료도 스트릭 인정)
+  3. Phase 3 이하에서 이탈:
+     - state.json은 업데이트하지 않음 (너무 적은 양)
+     - "다음에 `/sprint {토픽id}`로 이어서 할 수 있어요!" 안내
+  4. 종료.
 
 ---
 

@@ -17,6 +17,7 @@ user-invocable: true
 | 명령어 | 설명 |
 |---|---|
 | `/sprint [토픽ID]` | 30분 학습 스프린트 시작 |
+| `/sprint mini` | 15분 미니 스프린트 (HOOK→READ→TRY-IT→QUIZ) |
 | `/quiz [토픽ID\|all]` | 5분 퀵 퀴즈 |
 | `/streak` | 스트릭 + 업적 확인 |
 | `/dashboard` | 전체 진행률 대시보드 |
@@ -36,6 +37,8 @@ user-invocable: true
 
 ## 팁
 
-- 30분이 부담되면 `/quiz`로 5분만!
+- 30분이 부담되면 `/sprint mini`로 15분만!
+- 15분도 부담되면 `/quiz`로 5분만!
+- 중간에 그만둬도 괜찮아요 — Phase 4 이상이면 부분 크레딧 인정
 - 모든 토픽 완료 후 `/sprint update`로 새 토픽 확인
-- 스트릭 유지가 핵심! 하루 한 번 `/sprint`
+- 스트릭 유지가 핵심! 하루 한 번 `/sprint` (미니도 OK)
