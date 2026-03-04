@@ -1,0 +1,28 @@
+{
+  "_comment": "이 파일은 확장 토픽의 예시 템플릿입니다. /sprint update가 자동 생성하는 파일과 동일한 형식입니다. 실제 사용 시 이 파일을 삭제하거나 이름을 변경하세요.",
+  "id": "example-topic",
+  "name": "예시: 확장 토픽 템플릿",
+  "order": 100,
+  "summary": "이것은 확장 토픽의 예시입니다. /sprint update 명령으로 Claude Code 공식 문서에서 새로운 기능이 감지되면 이 형식으로 자동 생성됩니다.",
+  "doc_url": "https://code.claude.com/docs/en/example",
+  "key_points": [
+    "확장 토픽은 data/extensions/ 디렉토리에 JSON 파일로 저장됩니다",
+    "/sprint update 명령이 공식 문서를 스캔하여 새 토픽을 자동 생성합니다",
+    "Core 10개 토픽 완료 후 확장 토픽으로 자연스럽게 이어집니다"
+  ],
+  "try_it": "이 파일의 구조를 확인하고, 직접 새 확장 토픽 JSON을 만들어보세요.",
+  "challenge": "/sprint update를 실행하여 실제로 확장 토픽이 자동 생성되는 과정을 관찰해보세요.",
+  "quiz": [
+    {
+      "q": "확장 토픽 파일은 어느 디렉토리에 저장되나요?",
+      "a": "data/extensions/ 디렉토리에 JSON 파일로 저장됩니다.",
+      "distractors": [
+        "data/topics/ 디렉토리에 YAML 파일로 저장됩니다.",
+        "skills/extensions/ 디렉토리에 Markdown 파일로 저장됩니다."
+      ],
+      "hints": ["data/ 폴더 하위입니다", "JSON 형식입니다"]
+    }
+  ],
+  "source": "example-template",
+  "addedAt": "2026-03-05T00:00:00.000Z"
+}
