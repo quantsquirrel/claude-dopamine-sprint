@@ -29,6 +29,7 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
      그리고 Write로 `~/.claude/adhd-sprint/state.json` 생성:
      ```json
      {
+       "stateVersion": 2,
        "streak": {
          "current": 0,
          "longest": 0,
@@ -42,6 +43,7 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
        "usedCommands": []
      }
      ```
+     - `stateVersion`이 없는 기존 state.json을 만나면 자동으로 `"stateVersion": 2`를 추가한다.
 
 2. **curriculum.json 로드**: Read `${PLUGIN_ROOT}/data/curriculum.json`
    - PLUGIN_ROOT = 이 SKILL.md가 위치한 플러그인의 루트 디렉토리. 이 파일 기준으로 `../../data/curriculum.json`
@@ -193,7 +195,13 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 
 ## Phase 5: CAPTURE (3분) — TIL 메모
 
-1. "오늘 배운 것을 한 줄로 요약해보세요!" 안내.
+1. TIL 작성을 돕기 위한 가이드 질문을 먼저 표시한다:
+   ```
+   💡 TIL 작성 가이드:
+   - 오늘 처음 알게 된 것은?
+   - 가장 놀라웠던 점은?
+   - 내일 실무에서 바로 쓸 수 있는 것은?
+   ```
 2. AskUserQuestion으로 질문:
    - **질문**: "오늘의 TIL(Today I Learned)을 한 줄로 적어주세요!"
    - **options**: `["메모 완료", "스킵"]`
@@ -208,14 +216,26 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 
 ## Phase 6: SHARE (2분) — 공유 텍스트
 
-1. 자동으로 공유 텍스트를 생성하여 코드블록으로 표시:
-   ```
-   [Claude Code 학습 Day {streak.current+1}]
-   오늘 배운 것: {topic.name}
-   TIL: {user_til 또는 topic.summary 첫 문장}
-   #{streak.current+1}일차 #ClaudeCode #ADHD개발자
-   ```
-2. "복사해서 공유해보세요!" 안내 (강제하지 않음, 선택사항).
+1. AskUserQuestion으로 공유 플랫폼 선택:
+   - **질문**: "공유 텍스트를 어디에 쓸까요?"
+   - **options**: `["Twitter/X", "Slack/팀챗", "스킵"]`
+
+2. 선택에 따라 공유 텍스트를 생성하여 코드블록으로 표시:
+   - **Twitter/X** (280자 이내):
+     ```
+     Claude Code 학습 Day {streak.current+1} 🔥
+     오늘: {topic.name}
+     TIL: {user_til 또는 topic.summary 첫 문장}
+     #{streak.current+1}일차 #ClaudeCode #ADHD개발자
+     ```
+   - **Slack/팀챗** (상세 버전):
+     ```
+     📚 Claude Code 학습 Day {streak.current+1}
+     토픽: {topic.name}
+     TIL: {user_til 또는 topic.summary 첫 문장}
+     진행률: {완료수}/10 토픽 완료 | 스트릭: {streak.current+1}일
+     ```
+3. "복사해서 공유해보세요!" 안내 (강제하지 않음, 선택사항).
 
 ---
 
