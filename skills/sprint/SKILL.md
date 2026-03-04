@@ -53,12 +53,30 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 5. **토픽 결정**:
    - `$ARGUMENTS`에 토픽ID가 있으면 해당 토픽을 선택
    - 없으면 progress에서 status가 `"not_started"` 또는 `"in_progress"`인 첫 번째 토픽 선택 (core 먼저, 그 다음 extensions 순서)
+   - **모든 토픽 완료 시**: 모든 core 토픽이 `"completed"`이고 extensions도 없거나 모두 `"completed"`인 경우:
+     ```
+     🎉 모든 토픽을 마스터했어요!
+
+     선택지:
+     1. 복습 모드: 이전 토픽을 다시 학습 (퀴즈 재도전)
+     2. /sprint update: 새 토픽 확인
+     3. /quiz: 퀵 퀴즈로 복습
+     ```
+     AskUserQuestion으로 선택:
+     - **질문**: "모든 토픽을 완료했어요! 어떻게 할까요?"
+     - **options**: `["복습 모드", "새 토픽 확인 (/sprint update)", "퀵 퀴즈 (/quiz)"]`
+
+     응답에 따른 처리:
+     - **"복습 모드"**: `progress`에서 `completedAt`이 가장 오래된 토픽을 선택하여 스프린트 진행
+     - **"새 토픽 확인 (/sprint update)"**: "다음 명령어를 실행해주세요: `/sprint update`" 안내 후 종료
+     - **"퀵 퀴즈 (/quiz)"**: "다음 명령어를 실행해주세요: `/quiz`" 안내 후 종료
 
 ---
 
 ## Phase 1: HOOK (2분) — 호기심 자극
 
 1. `commands.json`에서 `state.json`의 `usedCommands`에 없는 명령어를 랜덤 선택한다.
+   - **모든 명령어를 이미 사용했을 때**: "모든 명령어를 탐험했어요! 오늘은 좋아하는 명령어의 새로운 사용법을 발견해보세요." 안내 후, `usedCommands`에서 랜덤으로 하나를 선택하고 해당 명령어의 advanced tip을 제공한다. Advanced tip은 해당 명령어의 잘 알려지지 않은 플래그, 조합 사용법, 또는 실전 활용 시나리오를 즉석에서 생성하여 제공한다.
 2. 선택한 명령어의 **이름 + description + surprise_fact**를 표시한다.
 3. AskUserQuestion으로 질문:
    - **질문**: "이 명령어 써본 적 있나요?"
