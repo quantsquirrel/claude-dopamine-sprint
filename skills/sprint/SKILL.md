@@ -139,8 +139,12 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 ## Phase 2: MICRO-READ (3분) — 핵심 3줄 요약
 
 1. 선택된 토픽의 **name + summary**를 표시한다.
-2. **key_points**를 번호 리스트로 표시한다.
-3. **doc_url** 안내: "더 자세히 알고 싶다면: {url}"
+2. **연관 토픽 힌트**: 이미 완료한 토픽 중 현재 토픽과 연관된 것이 있으면 짧게 연결해준다:
+   - 예: Hooks 학습 시 "이전에 배운 Tool Use의 개념이 여기서도 활용돼요!"
+   - 연관 관계: tool-use→hooks→skills-plugins, claude-md→permissions, agentic-loop→multi-agent, context-window→slash-commands
+   - 이미 완료한 토픽만 언급한다 (아직 안 배운 것은 스포일러 방지)
+3. **key_points**를 번호 리스트로 표시한다.
+4. **doc_url** 안내: "더 자세히 알고 싶다면: {url}"
 4. AskUserQuestion으로 질문:
    - **질문**: "이해됐나요?"
    - **options**: `["이해했어요!", "질문있어요", "스킵"]`
