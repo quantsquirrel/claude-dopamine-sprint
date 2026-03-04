@@ -125,6 +125,27 @@
       "description": "현재 터미널 세션을 Claude Code 데스크톱 앱으로 전환합니다. 시각적 diff 리뷰에 유용합니다.",
       "surprise_fact": "데스크톱 앱에서는 인라인 diff를 시각적으로 확인할 수 있어, 대규모 변경사항을 리뷰할 때 특히 편리합니다.",
       "example": "대규모 리팩토링 후 `/desktop`으로 전환해 시각적으로 diff 확인"
+    },
+    {
+      "command": "claude --resume",
+      "category": "navigation",
+      "description": "이전 대화 세션을 이어서 진행합니다. 중단된 작업을 정확히 그 시점부터 계속할 수 있습니다.",
+      "surprise_fact": "세션 ID 없이 --resume만 쓰면 가장 최근 세션을, --resume SESSION_ID로 특정 세션을 복구할 수 있습니다.",
+      "example": "`claude --resume`으로 어제 하던 디버깅 작업을 이어서 진행"
+    },
+    {
+      "command": "claude mcp add",
+      "category": "customization",
+      "description": "MCP 서버를 Claude Code에 추가합니다. 외부 도구와 데이터 소스를 연결하는 가장 빠른 방법입니다.",
+      "surprise_fact": "claude mcp add --transport sse로 HTTP 기반 원격 MCP 서버도 연결 가능합니다. 팀 공용 도구를 쉽게 공유할 수 있어요.",
+      "example": "`claude mcp add github -- npx -y @anthropic/mcp-github`로 GitHub 연동 추가"
+    },
+    {
+      "command": "/fast",
+      "category": "control",
+      "description": "빠른 모드를 토글합니다. 같은 모델을 사용하지만 출력 속도가 더 빨라집니다.",
+      "surprise_fact": "/fast는 모델을 바꾸는 게 아닙니다! 동일한 Claude Opus를 더 빠르게 실행할 뿐, 품질 차이가 없어요.",
+      "example": "빠른 응답이 필요할 때 `/fast`로 전환하고 다시 `/fast`로 원래 모드 복귀"
     }
   ]
 }
