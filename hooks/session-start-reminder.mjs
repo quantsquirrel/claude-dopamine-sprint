@@ -69,12 +69,19 @@ function main() {
   const diffMs = today.getTime() - lastDate.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-  // Already studied today — exit silently
+  const current = state.streak?.current || 0;
+  const totalSessions = state.totalSessions || 0;
+
+  // Already studied today — show mini progress instead of silence
   if (diffDays === 0) {
+    const progressMsg = buildProgressSummary(state);
+    if (progressMsg) {
+      const result = buildResult(progressMsg);
+      console.log(JSON.stringify(result));
+    }
     return;
   }
 
-  const current = state.streak?.current || 0;
   let msg;
 
   if (diffDays === 1) {
@@ -84,6 +91,28 @@ function main() {
   } else {
     // 4+ days
     msg = `📚 ${diffDays}일 만에 돌아오셨군요! /sprint로 다시 시작?`;
+  }
+
+  // Append progress summary
+  const progress = state.progress || {};
+  const completed = Object.values(progress).filter(p => p.status === 'completed').length;
+  msg += ` | 📊 ${completed}/10 토픽 완료`;
+
+  // Find next topic name from curriculum
+  try {
+    const currPath = join(PLUGIN_ROOT, 'data', 'curriculum.json');
+    if (existsSync(currPath)) {
+      const curriculum = JSON.parse(readFileSync(currPath, 'utf8'));
+      const nextTopic = curriculum.topics.find(t => {
+        const p = progress[t.id];
+        return !p || p.status !== 'completed';
+      });
+      if (nextTopic) {
+        msg += ` | 다음: ${nextTopic.name}`;
+      }
+    }
+  } catch (e) {
+    // Ignore curriculum read errors
   }
 
   // Check if curriculum update is needed
@@ -119,6 +148,29 @@ function appendUpdateHint(msg, docIndexPath) {
   }
 
   return msg;
+}
+
+/**
+ * Build a mini progress summary for users who already studied today.
+ */
+function buildProgressSummary(state) {
+  const progress = state.progress || {};
+  const completed = Object.values(progress).filter(p => p.status === 'completed').length;
+  const current = state.streak?.current || 0;
+  const totalMin = state.totalStudyMinutes || 0;
+
+  if (completed === 0 && current === 0) return null;
+
+  let parts = [];
+  if (current > 0) parts.push(`🔥 ${current}일 스트릭`);
+  if (completed > 0) parts.push(`📊 ${completed}/10 완료`);
+  if (totalMin > 0) parts.push(`⏱️ ${totalMin}분 학습`);
+
+  if (completed >= 10) {
+    parts.push('🎉 Core 완료! `/quiz`로 복습하거나 `/sprint update`로 새 토픽 확인');
+  }
+
+  return parts.join(' | ');
 }
 
 /**
