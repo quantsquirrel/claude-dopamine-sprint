@@ -93,26 +93,29 @@ function main() {
     msg = `📚 ${diffDays}일 만에 돌아오셨군요! /sprint로 다시 시작?`;
   }
 
-  // Append progress summary
+  // Load curriculum for topic count and next topic
   const progress = state.progress || {};
   const completed = Object.values(progress).filter(p => p.status === 'completed').length;
-  msg += ` | 📊 ${completed}/10 토픽 완료`;
-
-  // Find next topic name from curriculum
+  let topicCount = 10;
   try {
     const currPath = join(PLUGIN_ROOT, 'data', 'curriculum.json');
     if (existsSync(currPath)) {
       const curriculum = JSON.parse(readFileSync(currPath, 'utf8'));
+      topicCount = curriculum.topics.length;
       const nextTopic = curriculum.topics.find(t => {
         const p = progress[t.id];
         return !p || p.status !== 'completed';
       });
       if (nextTopic) {
-        msg += ` | 다음: ${nextTopic.name}`;
+        msg += ` | 📊 ${completed}/${topicCount} 완료 | 다음: ${nextTopic.name}`;
+      } else {
+        msg += ` | 📊 ${completed}/${topicCount} 완료`;
       }
+    } else {
+      msg += ` | 📊 ${completed}/${topicCount} 토픽 완료`;
     }
   } catch (e) {
-    // Ignore curriculum read errors
+    msg += ` | 📊 ${completed}/${topicCount} 토픽 완료`;
   }
 
   // Check if curriculum update is needed
@@ -161,12 +164,20 @@ function buildProgressSummary(state) {
 
   if (completed === 0 && current === 0) return null;
 
+  let topicCount = 10;
+  try {
+    const currPath = join(PLUGIN_ROOT, 'data', 'curriculum.json');
+    if (existsSync(currPath)) {
+      topicCount = JSON.parse(readFileSync(currPath, 'utf8')).topics.length;
+    }
+  } catch (e) { /* fallback to 10 */ }
+
   let parts = [];
   if (current > 0) parts.push(`🔥 ${current}일 스트릭`);
-  if (completed > 0) parts.push(`📊 ${completed}/10 완료`);
+  if (completed > 0) parts.push(`📊 ${completed}/${topicCount} 완료`);
   if (totalMin > 0) parts.push(`⏱️ ${totalMin}분 학습`);
 
-  if (completed >= 10) {
+  if (completed >= topicCount) {
     parts.push('🎉 Core 완료! `/quiz`로 복습하거나 `/sprint update`로 새 토픽 확인');
   }
 

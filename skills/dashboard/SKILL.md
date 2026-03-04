@@ -86,8 +86,8 @@ user-invocable: true
    ████████░░ {백분율}%
    ```
    - state.json의 history 배열에서 각 항목의 quizScore를 합산한다.
-   - `총맞춘` = 모든 history 항목의 맞춘 수 합계
-   - `총출제` = 모든 history 항목의 출제 수 합계
+   - `총맞춘` = 모든 history 항목의 `quizScore` 합계
+   - `총출제` = 모든 history 항목의 `quizTotal` 합계 (없으면 `topic` 필드로 curriculum에서 해당 토픽의 quiz 배열 길이를 역참조)
    - `백분율` = (총맞춘 / 총출제 * 100), 소수점 한 자리까지
    - 10칸짜리 프로그레스 바도 함께 표시한다.
    - history가 비어있으면 "아직 퀴즈 기록이 없어요." 표시.

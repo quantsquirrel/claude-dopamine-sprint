@@ -214,7 +214,7 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 
 - **history에 추가**:
   ```json
-  {"date": "YYYY-MM-DD", "topic": "topic-id", "duration": 30, "quizScore": 맞춘수}
+  {"date": "YYYY-MM-DD", "topic": "topic-id", "duration": 30, "quizScore": 맞춘수, "quizTotal": 전체문제수}
   ```
 
 - **progress 업데이트**:

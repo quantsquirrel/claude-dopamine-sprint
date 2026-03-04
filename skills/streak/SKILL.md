@@ -56,13 +56,14 @@ user-invocable: true
    | ⚡ 7일 연속 | `streak.longest >= 7` | 일주일 연속 학습! |
    | 💎 14일 연속 | `streak.longest >= 14` | 2주 연속 학습! |
    | 👑 30일 연속 | `streak.longest >= 30` | 한 달 연속 학습! |
-   | 📚 5개 토픽 완료 | history에서 고유 `topicId` 수 >= 5 | 다섯 가지 토픽 정복! |
-   | 🎓 모든 Core 토픽 완료 | `topics/` 디렉토리의 Core 토픽 전부가 history에 존재 | Core 커리큘럼 마스터! |
-   | 🧠 퀴즈 100% 정답 | history에서 `quizScore`가 "3/3"(만점)인 항목이 1개 이상 | 완벽한 퀴즈 점수! |
-   | ⏱️ 총 학습 300분 돌파 | history의 `durationMinutes` 합계 >= 300 | 총 5시간 학습 돌파! |
+   | 📚 5개 토픽 완료 | history에서 고유 `topic` 수 >= 5 | 다섯 가지 토픽 정복! |
+   | 🎓 모든 Core 토픽 완료 | `data/curriculum.json`의 10개 토픽 전부가 `state.progress`에서 `status: "completed"` | Core 커리큘럼 마스터! |
+   | 🧠 퀴즈 100% 정답 | history에서 `quizScore`가 `quizTotal`과 동일한 항목이 1개 이상 | 완벽한 퀴즈 점수! |
+   | ⏱️ 총 학습 300분 돌파 | history의 `duration` 합계 >= 300 | 총 5시간 학습 돌파! |
 
    - `streak.longest`를 사용하여 스트릭 관련 업적을 판별한다 (과거 최고 기록 기준).
-   - Core 토픽 목록은 `topics/` 디렉토리 내 파일 중 frontmatter에 `category: core`가 있는 항목이다.
+   - Core 토픽 목록은 `data/curriculum.json`의 topics 배열이다 (PLUGIN_ROOT = 이 파일 기준 `../../data/curriculum.json`).
+   - `quizTotal`이 history에 없는 기존 항목은, `topic` 필드로 curriculum.json에서 해당 토픽의 quiz 배열 길이를 역참조한다.
    - 달성하지 못한 업적은 표시하지 않는다.
    - 업적이 하나도 없으면 이 섹션을 생략한다.
 
@@ -84,9 +85,10 @@ user-invocable: true
 
    | 날짜 | 토픽 | 퀴즈 |
    |------|------|------|
-   | {date} | {topicId} | {quizScore} |
+   | {date} | {topic} | {quizScore}/{quizTotal} |
 
-   - 각 history 항목의 `date`, `topicId`, `quizScore` 필드를 사용한다.
+   - 각 history 항목의 `date`, `topic`, `quizScore`, `quizTotal` 필드를 사용한다.
+   - `quizTotal`이 없는 기존 항목은 `quizScore`만 표시한다.
    - history가 비어 있으면 "아직 학습 이력이 없습니다." 로 표시한다.
 
 7. 주간 통계를 계산하여 표시한다:
