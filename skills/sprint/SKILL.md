@@ -163,7 +163,7 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 1. 토픽의 `quiz` 배열에서 퀴즈를 출제한다.
 2. 각 퀴즈를 AskUserQuestion으로 진행:
    - **question** 표시
-   - **options**에 선택지 3-4개 제공 (정답 + 오답 2-3개를 섞는다)
+   - **options**에 선택지 3개 제공: 정답 1개 + quiz의 `distractors` 배열에서 오답 2개를 사용한다. `distractors`가 없으면 즉석에서 그럴듯한 오답 2개를 생성한다.
    - **중요**: 정답 위치를 랜덤하게 배치한다 (항상 첫 번째가 정답이면 안 됨)
 3. 정답/오답에 따른 피드백 + 해설 제공.
 
