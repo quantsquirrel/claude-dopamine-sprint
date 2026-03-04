@@ -3,7 +3,7 @@ name: sprint
 description: "ADHD 개발자를 위한 30분 학습 스프린트. '스프린트', '학습', '/sprint', '오늘 공부', 'ADHD 학습' 트리거."
 allowed-tools: Read, Write, Bash, Glob, Grep
 user-invocable: true
-argument-hint: "[토픽ID] - 특정 토픽으로 시작 (선택사항)"
+argument-hint: "[토픽ID|mini] - 특정 토픽 또는 mini(15분 미니 스프린트)"
 ---
 
 # Sprint: ADHD 개발자를 위한 30분 학습 스프린트

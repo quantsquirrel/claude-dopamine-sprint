@@ -9,8 +9,10 @@ user-invocable: true
 
 ## 절차
 
-1. `~/.claude/adhd-sprint/state.json` 파일을 읽는다.
-   - 파일이 없으면 다음 메시지를 출력하고 종료한다:
+1. 데이터를 로드한다:
+   - `~/.claude/adhd-sprint/state.json` — 학습 상태
+   - `${PLUGIN_ROOT}/data/curriculum.json` — 커리큘럼 (PLUGIN_ROOT = 이 파일 기준 `../../data/curriculum.json`)
+   - state.json이 없으면 다음 메시지를 출력하고 종료한다:
      ```
      아직 학습 기록이 없어요! `/sprint`로 시작해보세요.
      ```
