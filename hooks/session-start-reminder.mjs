@@ -33,7 +33,7 @@ function main() {
   }
 
   // Read state.json
-  const statePath = join(homedir(), '.claude', 'adhd-sprint', 'state.json');
+  const statePath = join(homedir(), '.claude', 'claude-dopamine-sprint', 'state.json');
   let state;
 
   if (!existsSync(statePath)) {

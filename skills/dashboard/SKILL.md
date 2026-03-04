@@ -10,7 +10,7 @@ user-invocable: true
 ## 절차
 
 1. 데이터를 로드한다:
-   - `~/.claude/adhd-sprint/state.json` — 학습 상태
+   - `~/.claude/claude-dopamine-sprint/state.json` — 학습 상태
    - `${PLUGIN_ROOT}/data/curriculum.json` — 커리큘럼 (PLUGIN_ROOT = 이 파일 기준 `../../data/curriculum.json`)
    - Glob `${PLUGIN_ROOT}/data/extensions/*.json` — 확장 토픽 파일들
 

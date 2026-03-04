@@ -21,12 +21,12 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 
 ## Prerequisites (매 실행 시 반드시 수행)
 
-1. **state.json 로드**: Read `~/.claude/adhd-sprint/state.json`
+1. **state.json 로드**: Read `~/.claude/claude-dopamine-sprint/state.json`
    - 파일이 없으면 디렉토리와 초기 상태를 생성한다:
      ```bash
-     mkdir -p ~/.claude/adhd-sprint/
+     mkdir -p ~/.claude/claude-dopamine-sprint/
      ```
-     그리고 Write로 `~/.claude/adhd-sprint/state.json` 생성:
+     그리고 Write로 `~/.claude/claude-dopamine-sprint/state.json` 생성:
      ```json
      {
        "stateVersion": 2,
@@ -250,7 +250,7 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 3. 정답/오답에 따른 피드백 + 해설 제공.
 
 ### state.json 업데이트 (퀴즈 완료 후)
-퀴즈 완료 후 아래 항목을 모두 업데이트하고 Write로 `~/.claude/adhd-sprint/state.json`에 저장한다:
+퀴즈 완료 후 아래 항목을 모두 업데이트하고 Write로 `~/.claude/claude-dopamine-sprint/state.json`에 저장한다:
 
 - **streak 계산**:
   - `lastStudyDate`가 어제 → `current += 1`
