@@ -58,6 +58,7 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
 
 6. **토픽 결정**:
    - `$ARGUMENTS`에 토픽ID가 있으면 해당 토픽을 선택
+     - 해당 토픽이 이미 `"completed"` 상태이면 → **복습 모드** 활성화 (아래 참조)
    - 없으면 progress에서 status가 `"not_started"` 또는 `"in_progress"`인 첫 번째 토픽 선택 (core 먼저, 그 다음 extensions 순서)
    - **모든 토픽 완료 시**: 모든 core 토픽이 `"completed"`이고 extensions도 없거나 모두 `"completed"`인 경우:
      ```
@@ -73,9 +74,21 @@ HOOK(2분) → MICRO-READ(3분) → TRY-IT(8분) → CHALLENGE(7분) → CAPTURE
      - **options**: `["복습 모드", "새 토픽 확인 (/sprint update)", "퀵 퀴즈 (/quiz)"]`
 
      응답에 따른 처리:
-     - **"복습 모드"**: `progress`에서 `completedAt`이 가장 오래된 토픽을 선택하여 스프린트 진행
+     - **"복습 모드"**: `progress`에서 `completedAt`이 가장 오래된 토픽을 선택하여 **복습 모드**로 진행
      - **"새 토픽 확인 (/sprint update)"**: "다음 명령어를 실행해주세요: `/sprint update`" 안내 후 종료
      - **"퀵 퀴즈 (/quiz)"**: "다음 명령어를 실행해주세요: `/quiz`" 안내 후 종료
+
+### 복습 모드 (이미 완료된 토픽)
+
+이미 `"completed"` 상태인 토픽을 학습할 때는 축약된 4단계로 진행한다:
+
+1. **Phase 2: MICRO-READ** — key_points를 "복습" 형태로 빠르게 표시 (기억 환기)
+2. **Phase 4: CHALLENGE** — 이전과 다른 각도의 심화 도전. 이미 한 번 풀었으므로 더 어려운 변형을 즉석에서 생성한다.
+3. **Phase 7: STREAK** — 퀴즈 재도전 (이전 점수 개선 기회)
+4. **결과**: `progress`의 `quizScore`를 이전보다 높으면 갱신, 낮으면 유지 (최고 기록 보존)
+
+복습 모드의 `duration`은 15분, `totalStudyMinutes += 15`로 기록한다.
+복습 모드도 스트릭에 포함된다.
 
 ---
 
