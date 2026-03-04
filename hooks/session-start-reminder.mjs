@@ -33,12 +33,25 @@ function main() {
   }
 
   // Read state.json
+  // Check for breadcrumb
+  const breadcrumbPath = join(homedir(), '.claude', 'claude-dopamine-sprint', 'breadcrumb.txt');
+  let breadcrumbMsg = '';
+  if (existsSync(breadcrumbPath)) {
+    try {
+      const bc = readFileSync(breadcrumbPath, 'utf8').trim();
+      if (bc) {
+        breadcrumbMsg = `\n🍞 Breadcrumb: \`${bc}\``;
+      }
+    } catch (e) { /* ignore */ }
+  }
+
   const statePath = join(homedir(), '.claude', 'claude-dopamine-sprint', 'state.json');
   let state;
 
   if (!existsSync(statePath)) {
     // No state file — first time user
-    const msg = 'ADHD Sprint 플러그인이 설치되어 있습니다! `/sprint`로 첫 학습을 시작해보세요.';
+    let msg = 'ADHD Sprint 플러그인이 설치되어 있습니다! `/sprint`로 첫 학습을 시작해보세요.';
+    if (breadcrumbMsg) msg += breadcrumbMsg;
     const result = buildResult(msg);
     console.log(JSON.stringify(result));
     return;
@@ -55,7 +68,8 @@ function main() {
 
   if (!lastStudyDate) {
     // State exists but no study record
-    const msg = '아직 학습 기록이 없어요. `/sprint`로 첫 스프린트를!';
+    let msg = '아직 학습 기록이 없어요. `/sprint`로 첫 스프린트를!';
+    if (breadcrumbMsg) msg += breadcrumbMsg;
     const result = buildResult(msg);
     console.log(JSON.stringify(result));
     return;
@@ -74,8 +88,9 @@ function main() {
 
   // Already studied today — show mini progress instead of silence
   if (diffDays === 0) {
-    const progressMsg = buildProgressSummary(state);
+    let progressMsg = buildProgressSummary(state);
     if (progressMsg) {
+      if (breadcrumbMsg) progressMsg += breadcrumbMsg;
       const result = buildResult(progressMsg);
       console.log(JSON.stringify(result));
     }
@@ -121,6 +136,11 @@ function main() {
   // Check if curriculum update is needed
   const docIndexPath = join(PLUGIN_ROOT, 'data', 'doc-index.json');
   msg = appendUpdateHint(msg, docIndexPath);
+
+  // Append breadcrumb if present
+  if (breadcrumbMsg) {
+    msg += breadcrumbMsg;
+  }
 
   const result = buildResult(msg);
   console.log(JSON.stringify(result));
