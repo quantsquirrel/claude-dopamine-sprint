@@ -58,6 +58,7 @@ AskUserQuestion으로 질문:
 ## 리셋 실행
 
 확인 후 리셋 대상에 따라 state.json을 수정하고 Write로 `~/.claude/adhd-sprint/state.json`에 저장한다.
+쓰기 전 `state.json.bak`으로 백업한다 (Bash `cp`). 쓰기 성공 후 백업을 삭제한다.
 
 ### 특정 토픽 리셋
 
