@@ -1,0 +1,290 @@
+{
+  "version": "1.0.0",
+  "topics": [
+    {
+      "id": "agentic-loop",
+      "name": "Agentic Loop",
+      "order": 1,
+      "summary": "Claude Code는 단순 코드 생성기가 아니라 '에이전틱 루프'로 동작합니다. 컨텍스트 수집(코드 읽기, 검색) → 행동(파일 편집, 명령 실행) → 검증(빌드, 테스트)의 사이클을 자율적으로 반복하며, 목표가 달성될 때까지 스스로 판단하고 행동합니다.",
+      "doc_url": "https://code.claude.com/docs/en/how-claude-code-works",
+      "key_points": [
+        "Read → Plan → Act → Verify 사이클을 자율적으로 반복",
+        "한 번의 프롬프트로 여러 파일을 읽고, 수정하고, 빌드/테스트까지 수행",
+        "실패 시 스스로 원인을 분석하고 재시도하는 자기 교정 능력 보유"
+      ],
+      "try_it": "터미널에서 `claude`를 실행한 후 \"이 프로젝트의 구조를 파악하고 README에 정리해줘\"라고 요청해보세요. Claude가 파일을 탐색하고, 분석하고, 문서를 작성하는 전체 루프를 관찰할 수 있습니다.",
+      "challenge": "의도적으로 컴파일 에러가 있는 코드를 만들고 \"이 버그를 찾아서 고쳐줘\"라고 요청해보세요. Claude가 에러를 발견 → 원인 분석 → 수정 → 빌드 검증까지 하는 전체 루프를 확인하세요.",
+      "quiz": [
+        {
+          "q": "Claude Code의 에이전틱 루프 3단계를 순서대로 말해보세요.",
+          "a": "컨텍스트 수집(Read) → 행동(Act) → 검증(Verify)",
+          "hints": ["첫 번째는 코드를 '읽는' 단계입니다", "마지막은 결과를 '확인'하는 단계입니다"]
+        },
+        {
+          "q": "Claude Code가 빌드 실패를 만나면 어떻게 행동하나요?",
+          "a": "에러 메시지를 분석하고, 원인을 파악한 뒤, 코드를 수정하고 다시 빌드를 시도합니다. 이 과정을 성공할 때까지 반복합니다.",
+          "hints": ["단순히 멈추지 않습니다", "스스로 '교정'하는 능력이 핵심입니다"]
+        },
+        {
+          "q": "Claude Code가 일반 코드 자동완성 도구(예: Copilot)와 가장 다른 점은 무엇인가요?",
+          "a": "코드 생성뿐 아니라 파일 읽기, 명령 실행, 빌드/테스트 검증까지 자율적으로 수행하는 에이전트라는 점입니다.",
+          "hints": ["'자율적'이라는 키워드가 핵심입니다", "도구를 직접 사용할 수 있다는 점을 생각해보세요"]
+        }
+      ]
+    },
+    {
+      "id": "claude-md",
+      "name": "CLAUDE.md",
+      "order": 2,
+      "summary": "CLAUDE.md는 Claude Code에게 프로젝트별 지시사항을 전달하는 마크다운 파일입니다. 프로젝트 루트, 홈 디렉토리, 하위 디렉토리 등 3계층으로 구성되며, 코딩 규칙, 아키텍처 결정, 빌드 명령어 등을 명시해 일관된 작업을 보장합니다.",
+      "doc_url": "https://code.claude.com/docs/en/memory",
+      "key_points": [
+        "3계층 구조: ~/.claude/CLAUDE.md (글로벌) → 프로젝트 루트 CLAUDE.md → 하위 디렉토리 CLAUDE.md",
+        "/init 명령으로 프로젝트 분석 후 자동 생성 가능",
+        "자동 메모리(auto memory) 기능으로 Claude가 학습한 내용을 자동 저장"
+      ],
+      "try_it": "프로젝트 루트에서 `/init`을 실행해 CLAUDE.md를 자동 생성해보세요. 생성된 내용을 확인하고, 팀 코딩 규칙이나 빌드 명령어를 추가해보세요.",
+      "challenge": "3계층 CLAUDE.md를 모두 활용해보세요. ~/.claude/CLAUDE.md에 개인 선호(언어, 스타일), 프로젝트 루트에 빌드/테스트 명령어, src/ 하위에 컴포넌트 규칙을 각각 작성해보세요.",
+      "quiz": [
+        {
+          "q": "CLAUDE.md의 3계층 우선순위를 높은 것부터 나열해보세요.",
+          "a": "하위 디렉토리 CLAUDE.md → 프로젝트 루트 CLAUDE.md → ~/.claude/CLAUDE.md (글로벌). 더 구체적인 위치가 더 높은 우선순위를 가집니다.",
+          "hints": ["CSS의 specificity와 비슷한 원리입니다", "더 가까운 파일이 이깁니다"]
+        },
+        {
+          "q": "CLAUDE.md를 자동으로 생성하는 슬래시 명령어는 무엇인가요?",
+          "a": "/init",
+          "hints": ["프로젝트를 '초기화'하는 명령어입니다", "4글자입니다"]
+        }
+      ]
+    },
+    {
+      "id": "tool-use",
+      "name": "Tool Use",
+      "order": 3,
+      "summary": "Claude Code는 Read, Write, Edit, Bash, Glob, Grep 등 내장 도구를 사용해 코드베이스와 상호작용합니다. 파일을 읽고 쓰고, 터미널 명령을 실행하고, 패턴으로 파일을 검색하는 등 개발자가 하는 모든 작업을 도구를 통해 수행합니다.",
+      "doc_url": "https://code.claude.com/docs/en/how-claude-code-works",
+      "key_points": [
+        "Read/Write/Edit: 파일 읽기, 새 파일 생성, 기존 파일 부분 수정",
+        "Bash: 터미널 명령 실행 (빌드, 테스트, git 등)",
+        "Glob/Grep: 파일명 패턴 검색과 파일 내용 검색"
+      ],
+      "try_it": "Claude에게 \"src 폴더에서 TODO 주석이 있는 파일을 모두 찾아줘\"라고 요청해보세요. Grep 도구로 검색하고 결과를 정리하는 과정을 관찰하세요.",
+      "challenge": "\"package.json의 의존성을 분석하고, 사용하지 않는 패키지를 찾아서 제거해줘\"라고 요청해보세요. Read, Grep, Bash, Edit 도구가 연쇄적으로 사용되는 것을 확인하세요.",
+      "quiz": [
+        {
+          "q": "파일 내용을 검색할 때 사용하는 도구와 파일명을 검색할 때 사용하는 도구를 각각 말해보세요.",
+          "a": "파일 내용 검색은 Grep, 파일명 검색은 Glob입니다.",
+          "hints": ["리눅스의 grep 명령어를 떠올려보세요", "glob은 와일드카드 패턴 매칭입니다"]
+        },
+        {
+          "q": "기존 파일의 일부분만 수정할 때 Write 대신 사용해야 하는 도구는 무엇인가요?",
+          "a": "Edit 도구입니다. Write는 전체 파일을 덮어쓰지만, Edit는 특정 부분만 정확하게 수정합니다.",
+          "hints": ["파일 '전체'가 아니라 '일부'를 바꾸는 도구입니다", "이름이 4글자입니다"]
+        },
+        {
+          "q": "Claude Code가 npm install이나 git commit 같은 터미널 명령을 실행할 때 사용하는 도구는 무엇인가요?",
+          "a": "Bash 도구입니다.",
+          "hints": ["셸 명령을 실행하는 도구입니다", "리눅스 셸의 이름과 같습니다"]
+        }
+      ]
+    },
+    {
+      "id": "context-window",
+      "name": "Context Window",
+      "order": 4,
+      "summary": "Claude Code의 컨텍스트 윈도우는 대화 중 기억할 수 있는 토큰의 한계입니다. 긴 대화나 큰 파일을 다루면 컨텍스트가 가득 차 성능이 저하됩니다. /compact로 요약하고, /clear로 초기화하며, 효율적으로 토큰을 관리하는 것이 핵심입니다.",
+      "doc_url": "https://code.claude.com/docs/en/how-claude-code-works",
+      "key_points": [
+        "/compact: 대화 내용을 요약해 컨텍스트 공간 확보",
+        "/clear: 대화 기록 완전 초기화로 새 시작",
+        "/cost: 현재 세션의 토큰 사용량과 비용 확인"
+      ],
+      "try_it": "긴 작업 후 `/cost`로 토큰 사용량을 확인해보세요. 그 다음 `/compact`를 실행하고 다시 `/cost`를 확인해 토큰이 줄어든 것을 비교해보세요.",
+      "challenge": "의도적으로 큰 파일(1000줄 이상)을 여러 번 읽게 한 후, 컨텍스트가 커진 상태에서 `/compact \"현재 작업 중인 버그 수정에 집중\"`으로 특정 주제에 맞게 요약해보세요.",
+      "quiz": [
+        {
+          "q": "대화가 길어져서 Claude의 응답이 느려졌을 때, 대화 내용을 유지하면서 토큰을 줄이는 명령어는?",
+          "a": "/compact",
+          "hints": ["'압축'한다는 의미입니다", "대화를 '요약'하는 명령어입니다"]
+        },
+        {
+          "q": "/compact와 /clear의 차이점은 무엇인가요?",
+          "a": "/compact는 대화를 요약해서 핵심만 유지하지만, /clear는 대화 기록을 완전히 삭제하고 새로 시작합니다.",
+          "hints": ["/compact는 내용을 '보존'합니다", "/clear는 모든 것을 '지웁니다'"]
+        }
+      ]
+    },
+    {
+      "id": "slash-commands",
+      "name": "Slash Commands",
+      "order": 5,
+      "summary": "슬래시 명령어는 Claude Code에서 자주 쓰는 작업을 빠르게 실행하는 단축키입니다. /init으로 프로젝트 초기화, /review로 코드 리뷰, /pr로 풀리퀘스트 생성 등 개발 워크플로우의 핵심 작업을 한 단어로 실행할 수 있습니다.",
+      "doc_url": "https://code.claude.com/docs/en/cli-reference",
+      "key_points": [
+        "/init: CLAUDE.md 자동 생성으로 프로젝트 초기화",
+        "/review: 현재 변경사항에 대한 코드 리뷰 수행",
+        "/pr: 변경사항을 분석해 풀리퀘스트 자동 생성"
+      ],
+      "try_it": "프로젝트에서 코드를 수정한 후 `/review`를 실행해보세요. Claude가 변경사항을 분석하고 코드 리뷰를 제공하는 것을 확인하세요.",
+      "challenge": "기능을 구현한 후 `/pr`로 풀리퀘스트를 생성해보세요. Claude가 커밋 메시지, PR 제목, 설명을 어떻게 자동 작성하는지 관찰하세요.",
+      "quiz": [
+        {
+          "q": "프로젝트를 처음 시작할 때 CLAUDE.md를 자동 생성하는 명령어는?",
+          "a": "/init",
+          "hints": ["'초기화'를 의미합니다", "프로젝트 셋업 시 가장 먼저 실행"]
+        },
+        {
+          "q": "현재 코드 변경사항에 대해 리뷰를 받고 싶을 때 사용하는 명령어는?",
+          "a": "/review",
+          "hints": ["코드 '검토'를 영어로 하면?", "6글자입니다"]
+        },
+        {
+          "q": "사용 가능한 슬래시 명령어 목록을 보려면 어떻게 하나요?",
+          "a": "프롬프트에 /를 입력하면 사용 가능한 명령어 목록이 자동완성으로 표시됩니다.",
+          "hints": ["특별한 명령어가 필요하지 않습니다", "그냥 슬래시만 입력해보세요"]
+        }
+      ]
+    },
+    {
+      "id": "permissions",
+      "name": "Permissions & Safety",
+      "order": 6,
+      "summary": "Claude Code는 3단계 권한 시스템으로 안전하게 동작합니다. 읽기 전용 작업은 자동 허용, 파일 수정은 확인 요청, 위험한 명령은 명시적 승인이 필요합니다. Shift+Tab으로 권한을 빠르게 부여하고, 설정으로 신뢰하는 도구를 자동 허용할 수 있습니다.",
+      "doc_url": "https://code.claude.com/docs/en/permissions",
+      "key_points": [
+        "3단계: 자동 허용(읽기) → 확인 요청(쓰기) → 명시적 승인(위험 명령)",
+        "Shift+Tab: 권한 요청에 빠르게 승인하는 단축키",
+        "allowedTools 설정으로 신뢰하는 도구를 영구 자동 허용 가능"
+      ],
+      "try_it": "Claude에게 파일을 수정하는 작업을 요청하고, 권한 확인 팝업이 뜰 때 Shift+Tab을 눌러보세요. 다음에 같은 도구 사용 시 자동 허용되는지 확인하세요.",
+      "challenge": "settings.json에서 allowedTools에 자주 사용하는 도구(예: Edit, Write)를 추가해 자동 승인을 설정해보세요. `/config`로 설정 파일을 열 수 있습니다.",
+      "quiz": [
+        {
+          "q": "Claude Code 권한 요청을 세션 동안 자동 허용하는 키보드 단축키는?",
+          "a": "Shift+Tab",
+          "hints": ["Tab 키와 관련이 있습니다", "Shift를 함께 누릅니다"]
+        },
+        {
+          "q": "Claude Code에서 파일 읽기(Read)는 왜 별도 권한 요청 없이 실행되나요?",
+          "a": "읽기 전용 작업은 시스템을 변경하지 않으므로 안전한 작업으로 분류되어 자동 허용됩니다.",
+          "hints": ["'변경'이 없는 작업입니다", "안전하다고 판단되는 이유를 생각해보세요"]
+        }
+      ]
+    },
+    {
+      "id": "hooks",
+      "name": "Hooks",
+      "order": 7,
+      "summary": "Hooks는 Claude Code의 특정 이벤트에 자동으로 실행되는 셸 명령입니다. PreToolUse(도구 사용 전), PostToolUse(도구 사용 후), SessionStart(세션 시작 시) 등의 타이밍에 포매터 실행, 린트 체크, 알림 전송 같은 자동화를 설정할 수 있습니다.",
+      "doc_url": "https://code.claude.com/docs/en/hooks",
+      "key_points": [
+        "PreToolUse: 도구 실행 전 (검증, 차단 가능)",
+        "PostToolUse: 도구 실행 후 (포매팅, 린트 자동 실행)",
+        "SessionStart/SessionEnd: 세션 시작/종료 시 환경 설정"
+      ],
+      "try_it": "settings.json에 PostToolUse 훅을 추가해서 Write/Edit 도구 사용 후 자동으로 prettier를 실행하도록 설정해보세요.",
+      "challenge": "PreToolUse 훅을 만들어서 Bash 도구로 `rm -rf`가 실행되려 할 때 차단하는 안전장치를 구현해보세요.",
+      "quiz": [
+        {
+          "q": "파일 수정 후 자동으로 코드 포매터를 실행하려면 어떤 Hook 이벤트를 사용해야 하나요?",
+          "a": "PostToolUse 이벤트를 사용합니다. Write나 Edit 도구 사용 후에 트리거됩니다.",
+          "hints": ["도구 사용 '후'에 실행되는 이벤트입니다", "Post가 붙은 이벤트입니다"]
+        },
+        {
+          "q": "위험한 명령어를 사전에 차단하려면 어떤 Hook 이벤트를 사용해야 하나요?",
+          "a": "PreToolUse 이벤트를 사용합니다. 도구 실행 전에 검증하고 차단할 수 있습니다.",
+          "hints": ["도구 사용 '전'에 실행됩니다", "Pre가 붙은 이벤트입니다"]
+        },
+        {
+          "q": "Hooks 설정은 어디에 작성하나요?",
+          "a": "settings.json 파일의 hooks 섹션에 작성합니다. 프로젝트별(.claude/settings.json) 또는 글로벌(~/.claude/settings.json)로 설정 가능합니다.",
+          "hints": ["JSON 설정 파일입니다", "settings라는 이름의 파일입니다"]
+        }
+      ]
+    },
+    {
+      "id": "skills-plugins",
+      "name": "Skills & Plugins",
+      "order": 8,
+      "summary": "Skills(커스텀 슬래시 명령)와 Plugins(확장 패키지)로 Claude Code의 기능을 확장할 수 있습니다. .claude/commands/ 폴더에 마크다운 파일을 추가해 팀 공용 워크플로우를 만들고, 플러그인으로 MCP 서버, 에이전트, 설정을 패키지로 배포할 수 있습니다.",
+      "doc_url": "https://code.claude.com/docs/en/skills",
+      "key_points": [
+        ".claude/commands/에 마크다운 파일로 커스텀 슬래시 명령 생성",
+        "SKILL.md로 스킬의 사용법과 트리거 조건을 정의",
+        "플러그인은 MCP 서버, 에이전트, hooks, 설정을 하나의 패키지로 묶어 배포"
+      ],
+      "try_it": ".claude/commands/review-kr.md 파일을 만들고 \"한국어로 코드 리뷰를 수행하고 개선점을 제안해주세요\"라는 내용을 작성해보세요. `/review-kr`로 실행해보세요.",
+      "challenge": "팀 프로젝트에 맞는 커스텀 명령어 3개(예: /deploy, /test-all, /check-types)를 만들어 .claude/commands/에 추가해보세요.",
+      "quiz": [
+        {
+          "q": "커스텀 슬래시 명령어 파일은 어느 디렉토리에 생성해야 하나요?",
+          "a": ".claude/commands/ 디렉토리입니다.",
+          "hints": [".claude 폴더 하위입니다", "명령어(commands)라는 이름의 폴더입니다"]
+        },
+        {
+          "q": "플러그인이 스킬(커스텀 명령어)과 다른 점은 무엇인가요?",
+          "a": "스킬은 단일 마크다운 명령어이지만, 플러그인은 MCP 서버, 에이전트, hooks, 설정 등을 하나의 패키지로 묶어 설치/배포할 수 있는 확장 시스템입니다.",
+          "hints": ["플러그인은 여러 요소를 '패키지'로 묶습니다", "스킬보다 더 큰 단위의 확장입니다"]
+        }
+      ]
+    },
+    {
+      "id": "mcp-servers",
+      "name": "MCP Servers",
+      "order": 9,
+      "summary": "MCP(Model Context Protocol)는 Claude Code를 외부 도구 및 데이터 소스에 연결하는 개방형 표준입니다. Slack, Jira, GitHub, 데이터베이스 등 외부 서비스의 MCP 서버를 연결하면 Claude가 직접 해당 서비스의 데이터를 읽고 조작할 수 있습니다.",
+      "doc_url": "https://code.claude.com/docs/en/mcp",
+      "key_points": [
+        "MCP는 AI와 외부 도구를 연결하는 개방형 프로토콜",
+        "settings.json의 mcpServers 섹션에서 서버 설정",
+        "Slack, Jira, GitHub, DB 등 다양한 외부 서비스 연동 가능"
+      ],
+      "try_it": "settings.json에 filesystem MCP 서버를 추가해보세요. `claude mcp add filesystem -- npx -y @anthropic/mcp-filesystem ~/Documents`로 간단히 설정할 수 있습니다.",
+      "challenge": "GitHub MCP 서버를 연결하고, Claude에게 \"내 리포지토리의 열린 이슈를 확인해줘\"라고 요청해보세요. MCP를 통해 외부 서비스와 상호작용하는 것을 확인하세요.",
+      "quiz": [
+        {
+          "q": "MCP는 무엇의 약자이며, 어떤 역할을 하나요?",
+          "a": "Model Context Protocol의 약자이며, AI 모델과 외부 도구/데이터 소스를 연결하는 개방형 프로토콜입니다.",
+          "hints": ["세 단어의 첫 글자입니다", "'프로토콜'이 포함됩니다"]
+        },
+        {
+          "q": "MCP 서버를 CLI로 추가하는 명령어는 무엇인가요?",
+          "a": "claude mcp add <서버이름> -- <실행명령> 형식입니다.",
+          "hints": ["claude mcp로 시작합니다", "add 키워드를 사용합니다"]
+        }
+      ]
+    },
+    {
+      "id": "multi-agent",
+      "name": "Multi-Agent",
+      "order": 10,
+      "summary": "Claude Code는 여러 에이전트(서브에이전트)를 동시에 실행해 복잡한 작업을 병렬로 처리할 수 있습니다. 리드 에이전트가 작업을 분배하고, 각 서브에이전트가 독립적으로 작업한 후 결과를 합칩니다. 대규모 리팩토링이나 멀티파일 작업에 특히 유용합니다.",
+      "doc_url": "https://code.claude.com/docs/en/sub-agents",
+      "key_points": [
+        "Task 도구로 서브에이전트를 생성해 독립적인 작업 위임",
+        "리드 에이전트가 계획, 서브에이전트가 실행하는 분업 구조",
+        "각 서브에이전트는 자체 컨텍스트 윈도우를 가져 병렬 처리 가능"
+      ],
+      "try_it": "큰 프로젝트에서 \"이 프로젝트의 모든 컴포넌트에 TypeScript 타입을 추가해줘\"같은 멀티파일 작업을 요청해보세요. Claude가 서브에이전트를 생성해 병렬 처리하는 것을 관찰하세요.",
+      "challenge": "AGENTS.md 파일을 프로젝트 하위 디렉토리에 만들어 서브에이전트의 행동을 커스터마이즈해보세요. 예: tests/ 폴더에 AGENTS.md를 넣어 테스트 전용 지시사항을 설정.",
+      "quiz": [
+        {
+          "q": "서브에이전트를 생성하는 도구의 이름은 무엇인가요?",
+          "a": "Task 도구입니다.",
+          "hints": ["'작업'을 의미하는 영어 단어입니다", "4글자입니다"]
+        },
+        {
+          "q": "멀티 에이전트 사용 시 각 서브에이전트가 독립적으로 동작할 수 있는 이유는?",
+          "a": "각 서브에이전트가 자체 컨텍스트 윈도우를 가지므로, 메인 에이전트와 독립적으로 파일을 읽고 수정할 수 있습니다.",
+          "hints": ["컨텍스트 윈도우와 관련이 있습니다", "각자 '자기만의' 공간을 가집니다"]
+        },
+        {
+          "q": "서브에이전트의 동작을 디렉토리별로 커스터마이즈하는 파일은?",
+          "a": "AGENTS.md 파일입니다. 하위 디렉토리에 배치하면 해당 디렉토리에서 작업하는 서브에이전트에게 적용됩니다.",
+          "hints": ["CLAUDE.md와 비슷한 형식입니다", "'에이전트'라는 이름이 들어갑니다"]
+        }
+      ]
+    }
+  ]
+}

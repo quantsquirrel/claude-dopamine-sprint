@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "H=\"${CLAUDE_PLUGIN_ROOT}/hooks/session-start-reminder.mjs\"; [ -f \"$H\" ] || H=$(ls \"$HOME\"/.claude/plugins/cache/*/adhd-sprint/*/hooks/session-start-reminder.mjs 2>/dev/null | head -1); [ -n \"$H\" ] && [ -f \"$H\" ] && node \"$H\" || echo '{\"continue\":true}'",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

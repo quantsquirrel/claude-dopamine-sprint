@@ -1,0 +1,301 @@
+{
+  "lastScanned": "2026-03-05T00:00:00+09:00",
+  "source": "https://code.claude.com/docs",
+  "pages": [
+    {
+      "url": "https://code.claude.com/docs/en/overview",
+      "title": "Claude Code overview",
+      "category": "getting-started"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/quickstart",
+      "title": "Quickstart",
+      "category": "getting-started"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/setup",
+      "title": "Advanced setup",
+      "category": "getting-started"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/desktop-quickstart",
+      "title": "Get started with the desktop app",
+      "category": "getting-started"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/how-claude-code-works",
+      "title": "How Claude Code works",
+      "category": "core-concepts"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/interactive-mode",
+      "title": "Interactive mode",
+      "category": "core-concepts"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/fast-mode",
+      "title": "Speed up responses with fast mode",
+      "category": "core-concepts"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/memory",
+      "title": "How Claude remembers your project",
+      "category": "core-concepts"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/permissions",
+      "title": "Configure permissions",
+      "category": "core-concepts"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/checkpointing",
+      "title": "Checkpointing",
+      "category": "core-concepts"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/common-workflows",
+      "title": "Common workflows",
+      "category": "guides"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/best-practices",
+      "title": "Best Practices for Claude Code",
+      "category": "guides"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/costs",
+      "title": "Manage costs effectively",
+      "category": "guides"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/output-styles",
+      "title": "Output styles",
+      "category": "guides"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/terminal-config",
+      "title": "Optimize your terminal setup",
+      "category": "guides"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/cli-reference",
+      "title": "CLI reference",
+      "category": "reference"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/settings",
+      "title": "Claude Code settings",
+      "category": "reference"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/keybindings",
+      "title": "Customize keyboard shortcuts",
+      "category": "reference"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/model-config",
+      "title": "Model configuration",
+      "category": "reference"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/statusline",
+      "title": "Customize your status line",
+      "category": "reference"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/hooks",
+      "title": "Hooks reference",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/hooks-guide",
+      "title": "Automate workflows with hooks",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/skills",
+      "title": "Extend Claude with skills",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/plugins",
+      "title": "Create plugins",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/plugins-reference",
+      "title": "Plugins reference",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/discover-plugins",
+      "title": "Discover and install prebuilt plugins through marketplaces",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/plugin-marketplaces",
+      "title": "Create and distribute a plugin marketplace",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/features-overview",
+      "title": "Extend Claude Code",
+      "category": "customization"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/mcp",
+      "title": "Connect Claude Code to tools via MCP",
+      "category": "integrations"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/sub-agents",
+      "title": "Create custom subagents",
+      "category": "integrations"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/agent-teams",
+      "title": "Orchestrate teams of Claude Code sessions",
+      "category": "integrations"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/headless",
+      "title": "Run Claude Code programmatically",
+      "category": "integrations"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/vs-code",
+      "title": "Use Claude Code in VS Code",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/jetbrains",
+      "title": "JetBrains IDEs",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/desktop",
+      "title": "Use Claude Code Desktop",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/claude-code-on-the-web",
+      "title": "Claude Code on the web",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/chrome",
+      "title": "Use Claude Code with Chrome (beta)",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/slack",
+      "title": "Claude Code in Slack",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/remote-control",
+      "title": "Continue local sessions from any device with Remote Control",
+      "category": "surfaces"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/github-actions",
+      "title": "Claude Code GitHub Actions",
+      "category": "ci-cd"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/gitlab-ci-cd",
+      "title": "Claude Code GitLab CI/CD",
+      "category": "ci-cd"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/devcontainer",
+      "title": "Development containers",
+      "category": "ci-cd"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/authentication",
+      "title": "Authentication",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/third-party-integrations",
+      "title": "Enterprise deployment overview",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/amazon-bedrock",
+      "title": "Claude Code on Amazon Bedrock",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/google-vertex-ai",
+      "title": "Claude Code on Google Vertex AI",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/microsoft-foundry",
+      "title": "Claude Code on Microsoft Foundry",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/llm-gateway",
+      "title": "LLM gateway configuration",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/server-managed-settings",
+      "title": "Configure server-managed settings (public beta)",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/analytics",
+      "title": "Track team usage with analytics",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/monitoring-usage",
+      "title": "Monitoring",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/network-config",
+      "title": "Enterprise network configuration",
+      "category": "enterprise"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/sandboxing",
+      "title": "Sandboxing",
+      "category": "security"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/security",
+      "title": "Security",
+      "category": "security"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/data-usage",
+      "title": "Data usage",
+      "category": "security"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/zero-data-retention",
+      "title": "Zero data retention",
+      "category": "security"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/legal-and-compliance",
+      "title": "Legal and compliance",
+      "category": "security"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/troubleshooting",
+      "title": "Troubleshooting",
+      "category": "support"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/changelog",
+      "title": "Changelog",
+      "category": "support"
+    }
+  ]
+}
